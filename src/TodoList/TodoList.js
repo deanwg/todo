@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 
+
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
@@ -37,10 +38,10 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <h1>ToDo List</h1>
+    <div className=" bg-slate-100 py-5 border border-zinc-900 rounded-3xl">
+      <h1 className="flex justify-center text-lg font-bold border-b border-dashed border-zinc-500">ToDo List</h1>
       <div className="flex flex-col">
-        <div>
+        <div className="border divide-dashed mb-2">
           {todos.map((todo) => (
             <Todo
               key={todo.id}
@@ -56,9 +57,9 @@ const TodoList = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="bg-blue"
+            className="bg-zinc-200 shadow-lg rounded-sm"
           />
-          <button onClick={addToDo}>Add Todo</button>
+          <button className="bg-zinc-300 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
         </div>
       </div>
     </div>

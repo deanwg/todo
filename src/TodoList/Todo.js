@@ -9,8 +9,7 @@ const Todo = ({ todo, deleteTodo, completedToggled }) => {
     <div className="flex flex-row justify-between">
       <Checkbox onChange={() => completedToggled(todo.id)} />
       <span className={`${todo.completed ? "line-through" : ""}`}>
-        {todo.text} {todo.completed}
-        {JSON.stringify(todo)}
+        {todo.text}
       </span>
       <IconButton onClick={() => deleteTodo(todo.id)}>
         <DeleteIcon />
@@ -19,7 +18,7 @@ const Todo = ({ todo, deleteTodo, completedToggled }) => {
       {/* TODO: (hehe) Be able to grab and reorder todos
     <DehazeIcon /> */}
     </div>
-  );
+  );  
 };
 
 export default Todo;
