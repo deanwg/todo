@@ -58,12 +58,13 @@ const TodoList = () => {
         <div className="flex flex-row justify-center">
           <input
             type="text"
+            placeholder="What needs to be done?"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="bg-zinc-200 shadow-lg rounded-sm"
+            className="bg-zinc-200 shadow-lg rounded-sm text-center w-60"
           />
-          <button className="bg-zinc-300 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
+          <button className="bg-green-300 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
           <button className="bg-red-500 shadow-md p-2 ml-3 rounded-md" onClick={removeCompleted}>Remove all completed todos</button>
         </div>
       </div>
