@@ -37,11 +37,15 @@ const TodoList = () => {
     );
   };
 
+  const removeCompleted = () => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed))
+  };
+
   return (
     <div className=" bg-slate-100 py-5 border border-zinc-900 rounded-3xl">
-      <h1 className="flex justify-center text-lg font-bold border-b border-dashed border-zinc-500">ToDo List</h1>
+      <h1 className="flex justify-center text-2xl pb-4 font-bold border-b border-dashed border-zinc-400">To Do List</h1>
       <div className="flex flex-col">
-        <div className="border divide-dashed mb-2">
+        <div className="mb-2">
           {todos.map((todo) => (
             <Todo
               key={todo.id}
@@ -60,6 +64,7 @@ const TodoList = () => {
             className="bg-zinc-200 shadow-lg rounded-sm"
           />
           <button className="bg-zinc-300 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
+          <button className="bg-red-500 shadow-md p-2 ml-3 rounded-md" onClick={removeCompleted}>Remove all completed todos</button>
         </div>
       </div>
     </div>
