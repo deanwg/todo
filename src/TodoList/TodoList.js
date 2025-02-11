@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 
 
-const TodoList = () => {
+export const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
 
@@ -80,5 +80,3 @@ const TodoList = () => {
     </div>
   );
 };
-
-export default TodoList;

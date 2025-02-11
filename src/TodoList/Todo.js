@@ -3,7 +3,7 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import { Checkbox, IconButton } from "@mui/material";
 import {Check as CheckIcon, Delete as DeleteIcon, Edit as EditIcon, Close as CloseIcon } from "@mui/icons-material";
 
-const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
+export const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
   const [editText, setEditText] = useState(todo.text);
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
@@ -78,5 +78,3 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
     </div>
   );
 };
-
-export default Todo;
