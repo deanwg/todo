@@ -41,9 +41,17 @@ const TodoList = () => {
     setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed))
   };
 
+  const updateTodo = (id, editText) => {
+    setTodos((prevTodos) => 
+      prevTodos.map((todo) =>
+        todo.id === id ? {...todo, text: editText} : todo
+      )
+    );
+  };
+
   return (
-    <div className=" bg-slate-100 py-5 border border-zinc-900 rounded-3xl">
-      <h1 className="flex justify-center text-2xl pb-4 font-bold border-b border-dashed border-zinc-400">To Do List</h1>
+    <div className=" bg-slate-100 py-5 border border-zinc-900 rounded-3xl shadow-2xl mt-10">
+      <h1 className="flex justify-center text-2xl pb-4 font-bold border-b border-dashed border-zinc-300">To Do List</h1>
       <div className="flex flex-col">
         <div className="mb-2">
           {todos.map((todo) => (
@@ -52,7 +60,8 @@ const TodoList = () => {
               todo={todo}
               deleteTodo={deleteTodo}
               completedToggled={completedToggled}
-            ></Todo>
+              updateTodo={updateTodo}
+            />
           ))}
         </div>
         <div className="flex flex-row justify-center">
@@ -64,7 +73,7 @@ const TodoList = () => {
             onKeyDown={handleKeyDown}
             className="bg-zinc-200 shadow-lg rounded-sm text-center w-60"
           />
-          <button className="bg-green-300 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
+          <button className="bg-green-500 shadow-md p-2 ml-3 rounded-md" onClick={addToDo}>Add Todo</button>
           <button className="bg-red-500 shadow-md p-2 ml-3 rounded-md" onClick={removeCompleted}>Remove all completed todos</button>
         </div>
       </div>
