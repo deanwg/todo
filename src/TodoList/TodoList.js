@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 
 
-export const TodoList = () => {
+const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
 
@@ -49,18 +49,32 @@ export const TodoList = () => {
     );
   };
 
+  const moveTodo = (fromIndex, toIndex) => {
+    setTodos((prevTodos) => {
+      if (fromIndex === toIndex) return prevTodos; // Prevent unnecessary state update
+      const updatedTodos = [...prevTodos];
+      const [movedItem] = updatedTodos.splice(fromIndex, 1);
+      updatedTodos.splice(toIndex, 0, movedItem);
+      return updatedTodos;
+    });
+  };
+
+
+
   return (
     <div className=" bg-slate-100 py-5 border border-zinc-900 rounded-3xl shadow-2xl mt-10">
       <h1 className="flex justify-center text-2xl pb-4 font-bold border-b border-dashed border-zinc-300">To Do List</h1>
       <div className="flex flex-col">
         <div className="mb-2">
-          {todos.map((todo) => (
+          {todos.map((todo, index) => (
             <Todo
               key={todo.id}
+              index={index}
               todo={todo}
               deleteTodo={deleteTodo}
               completedToggled={completedToggled}
               updateTodo={updateTodo}
+              moveTodo={moveTodo}
             />
           ))}
         </div>
@@ -80,3 +94,5 @@ export const TodoList = () => {
     </div>
   );
 };
+
+export default TodoList;
