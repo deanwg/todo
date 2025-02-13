@@ -1,9 +1,6 @@
 import React, { useEffect, useRef,  useState } from "react";
 import { Checkbox, IconButton } from "@mui/material";
 import {Check as CheckIcon, Delete as DeleteIcon, Edit as EditIcon, Close as CloseIcon, Dehaze as DehazeIcon } from "@mui/icons-material";
-import { useDrag, useDrop } from "react-dnd";
-
-const ITEM_TYPE = "TODO";
 
 const Todo = ({ todo, deleteTodo, completedToggled, updateTodo, index, moveTodo }) => {
   const [editText, setEditText] = useState(todo.text);
@@ -26,25 +23,6 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo, index, moveTodo 
     }
   }
 
-  const [{ isDragging }, dragRef] = useDrag({
-    type: ITEM_TYPE,
-    item: { index },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-
-const [, dropRef] = useDrop({
-  accept: ITEM_TYPE,
-  hover: (draggedItem) => {
-    if (draggedItem.index !== index) {
-      moveTodo(draggedItem.index, index);
-      draggedItem.index = index; 
-    }
-  },
-});
-
   const checkFunction = () => {
     updateTodo(todo.id, editText);
     setIsEditing(false);
@@ -57,15 +35,12 @@ const [, dropRef] = useDrop({
 
 
   return (
-      <div
-        ref={(node) => dragRef(dropRef(node))}
-        className={`flex flex-row justify-between border items-center px-4 py-2 
-          ${ isDragging ? "opacity-50 shadow-lg" : "opacity-100"}`}
-      >
+      <div  className="flex flex-row justify-between border items-center px-4 py-2">
       <span>
       <DehazeIcon className="cursor-grab" />
       <Checkbox onChange={() => completedToggled(todo.id)} />
-        </span>
+      </span>
+      
       {isEditing ? (
         <input 
           ref={inputRef}
