@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
-import { Reorder } from "motion/react"
-
+import { Reorder, useDragControls } from "framer-motion";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+  const dragControls = useDragControls();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -55,15 +55,25 @@ const TodoList = () => {
       <h1 className="flex justify-center text-2xl pb-4 font-bold border-b border-dashed border-zinc-300">To Do List</h1>
       <div className="flex flex-col">
         <div className="mb-2">
-          {todos.map((todo, index) => (
+          <Reorder.Group values={todos} onReorder={setTodos}>
+          {todos.map((todo) => (
+            <Reorder.Item 
+              key ={todo.id} 
+              value={todo}
+              dragListener={false}
+              dragControls={dragControls}
+            >
             <Todo
               key={todo.id}
               todo={todo}
               deleteTodo={deleteTodo}
               completedToggled={completedToggled}
               updateTodo={updateTodo}
+              dragControls={dragControls}
             />
+            </Reorder.Item>
           ))}
+          </Reorder.Group>
         </div>
         <div className="flex flex-row justify-center">
           <input
