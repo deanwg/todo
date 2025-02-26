@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Todo from "./Todo";
 import { Reorder, useDragControls } from "framer-motion";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
-  const dragControls = useDragControls();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -57,21 +56,13 @@ const TodoList = () => {
         <div className="mb-2">
           <Reorder.Group values={todos} onReorder={setTodos}>
           {todos.map((todo) => (
-            <Reorder.Item 
-              key ={todo.id} 
-              value={todo}
-              dragListener={false}
-              dragControls={dragControls}
-            >
             <Todo
               key={todo.id}
               todo={todo}
               deleteTodo={deleteTodo}
               completedToggled={completedToggled}
               updateTodo={updateTodo}
-              dragControls={dragControls}
             />
-            </Reorder.Item>
           ))}
           </Reorder.Group>
         </div>

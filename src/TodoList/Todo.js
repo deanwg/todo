@@ -1,11 +1,13 @@
 import React, { useEffect, useRef,  useState } from "react";
 import { Checkbox, IconButton } from "@mui/material";
 import {Check as CheckIcon, Delete as DeleteIcon, Edit as EditIcon, Close as CloseIcon, Dehaze as DehazeIcon } from "@mui/icons-material";
+import { Reorder, useDragControls } from "framer-motion";
 
-const Todo = ({ todo, deleteTodo, completedToggled, updateTodo, dragControls }) => {
+const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
   const [editText, setEditText] = useState(todo.text);
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
+  const dragControls = useDragControls();
 
   useEffect(() => {
     if (isEditing) {
@@ -35,11 +37,17 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo, dragControls }) 
 
 
   return (
+    <Reorder.Item 
+      key ={todo.id} 
+      value={todo}
+      dragListener={false}
+      dragControls={dragControls}
+    >
       <div  className="flex flex-row justify-between border items-center px-4 py-2">
-      <div className="flex items-center">
-      <DehazeIcon className="cursor-grab" onPointerDown={(e) => dragControls.start(e)}/>
-      <Checkbox onChange={() => completedToggled(todo.id)} />
-      </div>
+        <div className="flex items-center">
+          <DehazeIcon className="cursor-grab" onPointerDown={(e) => dragControls.start(e)}/>
+          <Checkbox onChange={() => completedToggled(todo.id)} />
+        </div>
       
       {isEditing ? (
         <input 
@@ -76,7 +84,8 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo, dragControls }) 
         </IconButton>
       </div>
       )}
-    </div>
+      </div>
+    </Reorder.Item>
   );
 };  
 
