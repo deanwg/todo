@@ -1,7 +1,7 @@
 import React, { useEffect, useRef,  useState } from "react";
 import { Checkbox, IconButton } from "@mui/material";
 import {Check as CheckIcon, Delete as DeleteIcon, Edit as EditIcon, Close as CloseIcon, Dehaze as DehazeIcon } from "@mui/icons-material";
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder, useDragControls, motion } from "framer-motion";
 
 const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
   const [editText, setEditText] = useState(todo.text);
@@ -40,6 +40,10 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
       value={todo}
       dragListener={false}
       dragControls={dragControls}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, height: 0, margin: 0, padding: 0 }}
+      transition={{ duration: 0.3 }}
     >
       <div  className="flex flex-row justify-between border items-center px-4 py-2">
         <div className="flex items-center">

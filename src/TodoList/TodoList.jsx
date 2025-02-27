@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Todo from "./Todo";
-import { Reorder } from "framer-motion";
+import { AnimatePresence, Reorder } from "framer-motion";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -55,15 +55,17 @@ const TodoList = () => {
       <div className="flex flex-col">
         <div className="mb-2">
           <Reorder.Group values={todos} onReorder={setTodos}>
-          {todos.map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              deleteTodo={deleteTodo}
-              completedToggled={completedToggled}
-              updateTodo={updateTodo}
-            />
-          ))}
+              <AnimatePresence>
+                {todos.map((todo) => (
+                  <Todo
+                    key={todo.id}
+                    todo={todo}
+                    deleteTodo={deleteTodo}
+                    completedToggled={completedToggled}
+                    updateTodo={updateTodo}
+                  />
+                ))}
+              </AnimatePresence>
           </Reorder.Group>
         </div>
         <div className="flex flex-row justify-center">
