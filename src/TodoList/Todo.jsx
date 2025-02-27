@@ -23,10 +23,6 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
     }
   }
 
-  const mouseDownHandler = (event) => {
-    Event.preventDefault();
-  }
-
   const checkFunction = () => {
     updateTodo(todo.id, editText);
     setIsEditing(false);
@@ -70,19 +66,19 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
         {isEditing ? (
           <div>
             {/* onMouseDown required because the onBlur for the input field fires before onClick but after onMouseDown */}
-            <IconButton onMouseDown={() => checkFunction()}>
+            <IconButton onMouseDown={() => checkFunction()} aria-label="Accept changes">
               <CheckIcon className="[&>path]:fill-green-500"/>
             </IconButton>
-            <IconButton onMouseDown={() => closeFunction()}>
+            <IconButton onMouseDown={() => closeFunction()} aria-label="Discard changes">
               <CloseIcon className="[&>path]:fill-red-500"/>
             </IconButton>
           </div>
         ) : (
           <div>
-            <IconButton onClick={() => deleteTodo(todo.id)}>
+            <IconButton onClick={() => deleteTodo(todo.id)} aria-label="Delete todo">
               <DeleteIcon className="[&>path]:fill-red-500"/>
             </IconButton>
-            <IconButton  onClick={() => setIsEditing(true)}>
+            <IconButton  onClick={() => setIsEditing(true)} aria-label="Edit todo">
               <EditIcon className="[&>path]:fill-yellow-500"/>
             </IconButton>
           </div>
