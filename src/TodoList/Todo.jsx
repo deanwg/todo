@@ -17,12 +17,14 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
 
   const handleKeyDown = (event) =>{
     if(event.key === "Enter") {
-      updateTodo(todo.id, editText);
-      setIsEditing(false);
+      checkFunction();
     } else if (event.key ==="Escape") {
-      setEditText(todo.text);
-      setIsEditing(false);
+      closeFunction();
     }
+  }
+
+  const mouseDownHandler = (event) => {
+    Event.preventDefault();
   }
 
   const checkFunction = () => {
@@ -49,41 +51,42 @@ const Todo = ({ todo, deleteTodo, completedToggled, updateTodo }) => {
           <Checkbox onChange={() => completedToggled(todo.id)} />
         </div>
       
-      {isEditing ? (
-        <input 
-          ref={inputRef}
-          type="text"
-          value={editText} 
-          className="bg-zinc-200 shadow-md rounded-sm text-center w-60 h-8 my-1"
-          onChange={(e) => setEditText(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onBlur={() => setIsEditing(false)}
-        />
-      ) : (
-        <span className={`flex items-center ${todo.completed ? "line-through" : ""}`}>
-        {todo.text}
-      </span>
-      )} 
+        {isEditing ? (
+          <input 
+            ref={inputRef}
+            type="text"
+            value={editText} 
+            className="bg-zinc-200 shadow-md rounded-sm text-center w-60 h-8 my-1"
+            onChange={(e) => setEditText(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={() => setIsEditing(false)}
+          />
+        ) : (
+          <span className={`flex items-center max-w-lg ${todo.completed ? "line-through" : ""}`}>
+            {todo.text}
+          </span>
+        )} 
 
-      {isEditing ? (
-        <div>
-          <IconButton onClick={() => checkFunction()}>
-            <CheckIcon className="[&>path]:fill-green-500"/>
-          </IconButton>
-          <IconButton onClick={() => closeFunction()}>
-            <CloseIcon className="[&>path]:fill-red-500"/>
-          </IconButton>
-        </div>
-      ) : (
-        <div>
-        <IconButton onClick={() => deleteTodo(todo.id)}>
-          <DeleteIcon className="[&>path]:fill-red-500"/>
-        </IconButton>
-        <IconButton  onClick={() => setIsEditing(true)}>
-          <EditIcon className="[&>path]:fill-yellow-500"/>
-        </IconButton>
-      </div>
-      )}
+        {isEditing ? (
+          <div>
+            {/* onMouseDown required because the onBlur for the input field fires before onClick but after onMouseDown */}
+            <IconButton onMouseDown={() => checkFunction()}>
+              <CheckIcon className="[&>path]:fill-green-500"/>
+            </IconButton>
+            <IconButton onMouseDown={() => closeFunction()}>
+              <CloseIcon className="[&>path]:fill-red-500"/>
+            </IconButton>
+          </div>
+        ) : (
+          <div>
+            <IconButton onClick={() => deleteTodo(todo.id)}>
+              <DeleteIcon className="[&>path]:fill-red-500"/>
+            </IconButton>
+            <IconButton  onClick={() => setIsEditing(true)}>
+              <EditIcon className="[&>path]:fill-yellow-500"/>
+            </IconButton>
+          </div>
+        )}
       </div>
     </Reorder.Item>
   );
