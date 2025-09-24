@@ -17,3 +17,7 @@ This app allows users to add, edit, delete, mark tasks as completed, reorder tod
 - Smooth animations for adding, editing, reordering, and removing todos
 
 ---
+
+## Live Demo
+
+- https://todo-lovat-delta-71.vercel.app/
